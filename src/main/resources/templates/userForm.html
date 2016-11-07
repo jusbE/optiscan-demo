@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<meta charset="UTF-8"></meta>
+<title>User form</title>
 </head>
 <body>
 	<form action="#" th:action="@{/}" th:object="${userForm}" method="post">
@@ -10,12 +10,31 @@
                 <tr>
                     <td>First name:</td>
                     <td><input type="text" th:field="*{firstName}" /></td>
-                    <td th:if="${#fields.hasErrors('name')}" th:errors="*{firstName}">Name Error</td>
+                    <td th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
                     <td><input type="text" th:field="*{lastName}" /></td>
-                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Age Error</td>
+                    <td th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Last name Error</td>
+                </tr>
+                <tr>
+                    <td>Date of birth:</td>
+                    <td><input type="date" th:field="*{dateOfBirth}" /></td>
+                    <td th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Age Error</td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td><select th:field="*{gender}">
+					   <option th:each="value : ${T(app.models.EGender).values()}"
+					          th:value="${value}" 
+					          th:text="${value}">
+					   </option>
+					</select></td>
+                </tr>
+                <tr>
+                    <td>Why are you applying to this job?:</td>
+                    <td><input type="text" th:field="*{whyApplying}" /></td>
+                    <td th:if="${#fields.hasErrors('whyApplying')}" th:errors="*{whyApplying}">Why applying Error</td>
                 </tr>
                 <tr>
                     <td><button type="submit">Submit</button></td>

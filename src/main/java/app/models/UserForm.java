@@ -1,40 +1,34 @@
-package optiscan.models;
+package app.models;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
-import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class UserForm {
-	private static final Date FIFTEEN_YEARS_AGO = Date.from(Instant.now().minus(Duration.of(15, ChronoUnit.YEARS)));
-	private static final Date HUNDRED_YEARS_AGO = Date.from(Instant.now().minus(Duration.of(100, ChronoUnit.YEARS)));
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
-	@NotNull()
+import app.validators.Age;
+
+public class UserForm {
+
+	@NotEmpty
 	@Size(max=50)
 	private String firstName;
 
-	@NotNull()
+	@NotEmpty
 	@Size(max=50)
 	private String lastName;
 
-	@NotNull()
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@Age(min=15, max=100, message="Age must be between 15 and 100")
 	private Date dateOfBirth;
 
 	@NotNull()
 	private EGender gender;
 
-	@NotNull()
 	@Size(max=1000)
 	private String whyApplying;
-
-	@AssertTrue()
-	public boolean isAgeAccepted(){
-		return dateOfBirth.before(FIFTEEN_YEARS_AGO) && dateOfBirth.after(HUNDRED_YEARS_AGO);
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -75,6 +69,5 @@ public class UserForm {
 	public void setWhyApplying(String whyApplying) {
 		this.whyApplying = whyApplying;
 	}
-
 
 }

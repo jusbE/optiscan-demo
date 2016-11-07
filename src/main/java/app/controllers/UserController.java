@@ -1,4 +1,4 @@
-package optiscan.controllers;
+package app.controllers;
 
 import javax.validation.Valid;
 
@@ -9,28 +9,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import optiscan.models.UserForm;
+import app.models.UserForm;
 
 @Controller
 public class UserController extends WebMvcConfigurerAdapter{
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/results").setViewName("results");
+		registry.addViewController("/users").setViewName("users");
 	}
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String showForm(UserForm personForm) {
-		return "form";
+		return "userForm";
 	}
 
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public String checkPersonInfo(@Valid UserForm personForm, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
-			return "form";
+			return "userForm";
 		}
 
-		return "redirect:/results";
+		return "redirect:/users";
 	}
 }

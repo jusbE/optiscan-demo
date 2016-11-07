@@ -1,4 +1,4 @@
-package optiscan.models;
+package app.models;
 
 public enum EGender {
 	MALE,
