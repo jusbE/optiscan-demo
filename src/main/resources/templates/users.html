@@ -5,6 +5,24 @@
 <title>Users</title>
 </head>
 	<body>
-		User submitted.
+		<h1>Users</h1>
+		<table>
+	      <tr>
+	        <th>First name</th>
+	        <th>Last name</th>
+	        <th>Date of birth</th>
+	        <th>Gender</th>
+	        <th>Why applying</th>
+	      </tr>
+			<tr th:each="user: ${users}">
+	        <td th:text="${user.firstName}"></td>
+	        <td th:text="${user.lastName}"></td>
+	        <td th:text="${#dates.format(user.dateOfBirth,'dd MMMM yyyy')}"></td>
+	        <td th:text="${user.gender}"></td>
+	        <td th:text="${user.whyApplying}"></td>
+	      </tr>
+		</table>
+		
+		<input type="button" onclick="location.href='/';" value="Add new user" />
 	</body>
 </html>
