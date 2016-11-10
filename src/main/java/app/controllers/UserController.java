@@ -2,6 +2,7 @@ package app.controllers;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +14,10 @@ import app.database.PostgreUtil;
 import app.models.UserForm;
 
 @Controller
-public class UserController extends WebMvcConfigurerAdapter{
+class UserController extends WebMvcConfigurerAdapter{
 
-	private PostgreUtil pgUtil = PostgreUtil.getInstance();
+	@Autowired
+	private PostgreUtil pgUtil;
 
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String showForm(UserForm personForm) {
@@ -24,7 +26,6 @@ public class UserController extends WebMvcConfigurerAdapter{
 
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public String checkPersonInfo(@Valid UserForm personForm, BindingResult bindingResult) {
-
 		if (bindingResult.hasErrors()) {
 			return "userForm";
 		}
@@ -35,7 +36,7 @@ public class UserController extends WebMvcConfigurerAdapter{
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public ModelAndView showUsers(UserForm personForm) {
 		ModelAndView mv = new ModelAndView("/users");
-		mv.addObject("users", PostgreUtil.getInstance().getUsers());
+		mv.addObject("users", pgUtil.getUsers());
 		return mv;
 	}
 }

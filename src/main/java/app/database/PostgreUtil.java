@@ -6,32 +6,18 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 
-import org.postgresql.Driver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 
 import app.models.EGender;
 import app.models.UserForm;
 
 public class PostgreUtil {
 
-	private static final PostgreUtil INSTANCE = new PostgreUtil();
+	private  final JdbcTemplate jdbcTemplate;
 
-	private  JdbcTemplate jdbcTemplate;
-
-	private PostgreUtil(){
-		Driver driver = new Driver();
-		SimpleDriverDataSource ds = new SimpleDriverDataSource(driver,
-				"jdbc:postgresql://localhost:5432/optiscan",
-				"postgres",
-				"password");
-		ds.setDriverClass(org.postgresql.Driver.class);
-		jdbcTemplate = new JdbcTemplate(ds);
-	}
-
-	public static PostgreUtil getInstance(){
-		return INSTANCE;
+	public PostgreUtil(JdbcTemplate jdbcTemplate){
+		this.jdbcTemplate = jdbcTemplate;
 	}
 
 	/**
